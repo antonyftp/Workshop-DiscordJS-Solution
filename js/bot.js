@@ -27,7 +27,7 @@ client.on('message', message => {
         message.channel.send("pong");
     }
 
-    // Ex 2 : Quand la commande est du format !kick @user, kicker l'utilisateur mentionné
+    // Ex 3 : Quand la commande est du format !kick @user, kicker l'utilisateur mentionné
     const args = message.content.slice(1).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
     if (command === "kick") {
@@ -40,7 +40,7 @@ client.on('message', message => {
         message.delete();
     }
 
-    // Ex 3 : Quand la commande est du format !ban @user, bannir l'utilisateur mentionné
+    // Ex 4 : Quand la commande est du format !ban @user, bannir l'utilisateur mentionné
     if (command === "ban") {
         let bUser = message.guild.member(message.mentions.users.first());
         if (!bUser) return message.channel.send("Je n'ai pas trouvé l'utilisateur");
@@ -52,27 +52,24 @@ client.on('message', message => {
     }
 })
 
-// Ex 4 : Quand un channel est créé, afficher un message dans la console avec le nom du channel créé.
+// Ex 5 : Quand un channel est créé, afficher un message dans la console avec le nom du channel créé.
 
-client.on('channelCreate', channel => {
+client.on('channelCreate', (channel) => {
     console.log(`Channel ${channel.name} de type ${channel.type} créé`);
 })
 
-// Ex 5 : Quand un utilisateur est kick, afficher un message dans la console le nom de la personne kick
-
-client.on('guildMemberRemove', member => {
-    console.log(`${member.user.username} a été kick du discord`);
-})
 // Ex 6 : Quand un utilisateur est banni, afficher un message dans la console le nom de la personne banni
 
 client.on('guildBanAdd', (guild, user) => {
-    console.log(`${user.name} a été banni du discord`);
+    console.log(`${user.username} a été banni du discord`);
 })
 
 // Ex 7 : Quand un utilisateur est dé-banni, afficher un message dans la console avec le nom de la personne dé-banni
 
 client.on('guildBanRemove', (guild, user) => {
-    console.log(`${user.name} a été unban du discord`);
+    console.log(`${user.username} a été unban du discord`);
 })
+
+// Ex Bonus : Essayez de gérer autant d'event que possible (Invitations / Roles / Messages / Guild / ...) (cf: discord.js.org/#/docs)
 
 client.login(token.token);
